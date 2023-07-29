@@ -1,8 +1,5 @@
 <template>
-  
-  <VueTest_1 id="todolist" :props-veriable="veriable"/>
-
-  
+  <todolist id="todolist"/>
 </template>
 
 <script>
@@ -11,17 +8,7 @@ import VueTest_1 from './components/VueTest_1.vue'
 export default {
   name: 'App',
   components: {
-    VueTest_1
-  },
-  data() {
-    return {
-      veriable: "0"
-    }
-  },
-  methods: {
-    propsIncrease() {
-      this.veriable ++
-    }
+    todolist
   }
 }
 </script>

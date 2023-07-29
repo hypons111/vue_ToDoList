@@ -6,7 +6,7 @@
     <div id="container">
 
       <div id="panel">
-        <input id="eventInput" type="text" v-model="inputValue">
+        <input type="text" v-model="inputValue">
         <button v-on:click="addEvent()">ADD</button>
       </div>
 
@@ -28,24 +28,18 @@
             </li>
           </ol>
         </div>
+
       </div>
+
     </div>
   </div>
 </template>
 
-
-
 <script>
 export default {
-  name: "VueTest_1",
-  props: {
-    propsVeriable: Number,
-  },
+  name: "todolist",
   data() {
     return {
-      dataVeriable: 0,
-      title: "Vue Test 1",
-      content: "This is the first vue component.",
       inputValue: "",
       toDo:[],
       done:[]
@@ -69,9 +63,6 @@ export default {
 }
 </script>
 
-
-
-
 <style>
 h1 {
   display: inline-block;
@@ -81,25 +72,21 @@ i {
   top: 1em;
   right: 1em;
 } 
-
 #container,
 #panel,
 #list {
   display: flex;
 }
-
 #container {
   flex-flow: column;
   width: 70vw;
   margin: auto;
   border: 1px solid red;
 }
-
 #panel {
   justify-content: center;
   border: 1px solid blue;
 }
-
 #todo, #done {
   flex-grow: 1;
   border: 1px solid gray;
