@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import VueTest_1 from './components/VueTest_1.vue'
+import todolist from './components/todolist.vue'
 
 export default {
   name: 'App',
