@@ -46,11 +46,8 @@ export default {
     }
   },
   methods: {
-    dataIncrease() {
-      this.dataVeriable ++
-    },
     addEvent() {
-      this.toDo.push(this.inputValue)
+      this.toDo.push(this.inputValue.trim())
       this.inputValue = ""
     },
     removeEvent(index) {

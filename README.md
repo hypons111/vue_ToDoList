@@ -1,24 +1,35 @@
-# vue_1
+# To Do List
 
-## Project setup
+
+## 元件使用方法
+### 子元件 :
+存放在 components 資料夾內
+
+### 父元件 :
+
+#### 載入
 ```
-npm install
+import todolist from './components/todolist.vue'
+```
+#### 註冊
+```
+export default { 
+    components: { todolist } 
+}
+```
+#### 使用
+```
+<template>
+    <todolist id="todolist"/>
+</template>
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## v-model="inputValue"
+只可以放在 <input>, <textarea>, <select>
+綁定 data() {} 中的變數 
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## v:on:click="addEvent()"
+呼叫 mehtods: {} 中的方法
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## v-for="item, index in done" :key="item"
+done 是要 loop 的列陣

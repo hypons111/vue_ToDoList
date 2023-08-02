@@ -9,6 +9,9 @@ export default {
   name: 'App',
   components: {
     todolist
+  },
+  data() {
+    return {}
   }
 }
 </script>
