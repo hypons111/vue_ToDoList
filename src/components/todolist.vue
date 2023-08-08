@@ -5,26 +5,26 @@
 
     <div id="container">
 
-      <div id="panel">
+      <form @submit.prevent="addEvent()">
         <input type="text" v-model="inputValue">
-        <button v-on:click="addEvent()">ADD</button>
-      </div>
+        <button>ADD</button>
+      </form>
 
       <div id="list">
-        <div id="todo">
-          <h3>ToDo</h3>
+        <div id="doList">
+          <h3>doList</h3>
           <ol>
-            <li v-for="item, index in toDo" :key="item">
-              {{ item }} <button v-on:click="removeEvent(index)">X</button>
+            <li v-for="item in doList" :key="item.id">
+              {{ item.text }} <button @click="removeEvent(item.id)">X</button>
             </li>
           </ol>
         </div>
 
-        <div id="done">
-          <h3>Done</h3>
+        <div id="doneList">
+          <h3>doneList</h3>
           <ol>
-            <li v-for="item, index in done" :key="item">
-              {{ item }} <button v-on:click="removeEvent(index)">X</button>
+            <li v-for="item in doneList" :key="item">
+              {{ item }} <button>X</button>
             </li>
           </ol>
         </div>
@@ -35,29 +35,27 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "todolist",
-  data() {
-    return {
-      inputValue: "",
-      toDo:[],
-      done:[]
-    }
-  },
-  methods: {
-    addEvent() {
-      this.toDo.push(this.inputValue.trim())
-      this.inputValue = ""
-    },
-    removeEvent(index) {
-      this.done.push(this.toDo.splice(index, 1))
-    },
-    clearInput() {
-      this.inputValue = ""
-    }
-  }
+<script setup>
+import { ref } from 'vue';
+
+const inputValue = ref("")
+const doList = ref([])
+const doneList = ref([])
+
+function addEvent() {
+  doList.value.push({id: doList.value.length, text: inputValue.value})
+  inputValue.value = ""
 }
+
+function removeEvent(id) {
+  doList.value = doList.value.filter(item => {
+    if(item.id === id) {
+      doneList.value.push(item.text)
+    }
+    return item.id !== id
+  })
+}
+
 </script>
 
 <style>
@@ -84,7 +82,7 @@ i {
   justify-content: center;
   border: 1px solid blue;
 }
-#todo, #done {
+#doList, #doneList {
   flex-grow: 1;
   border: 1px solid gray;
 }
