@@ -1,92 +1,47 @@
 <template>
   <div>
-    <h1>To do list</h1>
-    <i>2023-07-29</i>
+    <h2>To do list</h2>
+    <p>2023-07-29</p>
 
     <div id="container">
-
-      <form @submit.prevent="addEvent()">
-        <input type="text" v-model="inputValue">
-        <button>ADD</button>
-      </form>
-
-      <div id="list">
-        <div id="doList">
-          <h3>doList</h3>
-          <ol>
-            <li v-for="item in doList" :key="item.id">
-              {{ item.text }} <button @click="removeEvent(item.id)">X</button>
-            </li>
-          </ol>
+      <input type="text" v-model="inputValue">
+      <button @click.prevent="addEvent()">Add Event</button>
+      <div id="doList">
+        <div v-for="item in filteredDoList" :key="item.id" :class="{ done: item.done }">
+          <input type="checkbox" v-model="item.done">{{ item.text }}
+          <button @click="removeEvent(item.id)">X</button>
         </div>
-
-        <div id="doneList">
-          <h3>doneList</h3>
-          <ol>
-            <li v-for="item in doneList" :key="item">
-              {{ item }} <button>X</button>
-            </li>
-          </ol>
-        </div>
-
       </div>
-
     </div>
+    <button @click="isShowDoneEvent = !isShowDoneEvent">{{isShowDoneEvent === true ? "Show" : "Hide"}} Done Events</button>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 const inputValue = ref("")
 const doList = ref([])
-const doneList = ref([])
+const isShowDoneEvent = ref(true)
+const filteredDoList = computed(() => {
+  return isShowDoneEvent.value === true ? 
+  doList.value :
+  doList.value.filter(event => { return event.done !== true})
+})
 
 function addEvent() {
-  doList.value.push({id: doList.value.length, text: inputValue.value})
+  doList.value.push({ id: doList.value.length, text: inputValue.value, group: "", done: false })
   inputValue.value = ""
 }
 
 function removeEvent(id) {
-  doList.value = doList.value.filter(item => {
-    if(item.id === id) {
-      doneList.value.push(item.text)
-    }
-    return item.id !== id
-  })
+  doList.value = doList.value.filter(event => { return event.id !== id })
 }
 
 </script>
 
 <style>
-h1 {
-  display: inline-block;
-}
-i {
-  position: absolute;
-  top: 1em;
-  right: 1em;
-} 
-#container,
-#panel,
-#list {
-  display: flex;
-}
-#container {
-  flex-flow: column;
-  width: 70vw;
-  margin: auto;
-  border: 1px solid red;
-}
-#panel {
-  justify-content: center;
-  border: 1px solid blue;
-}
-#doList, #doneList {
-  flex-grow: 1;
-  border: 1px solid gray;
-}
-li {
-  border: 1px solid gray;
+.done {
+  text-decoration: line-through;
 }
 </style>
